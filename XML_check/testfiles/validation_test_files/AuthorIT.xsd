@@ -1,0 +1,1407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.authorit.com/xml/authorit" targetNamespace="http://www.authorit.com/xml/authorit" elementFormDefault="qualified">
+  <!-- 'SUP24586 ANeame 03-Mar-08 Add Object Variants -->
+  <!-- 'SUP24960 ANeame 31-Mar-08 Add VariableAssignments to every object type -->
+  <!-- 'TKT123   ANeame 12-Aug-08 Add Structured Authoring -->
+  <!-- 'SUP31269 ANeame 29-Jan-09 Add publish job id -->
+  <!-- 'SUP31323 ANeame 02-Feb-09 Add Structured Authoring Phase II -->
+  <!-- 'SUP31632 KChen  15-Apr-09 Set Variant_Parent_ID value as -1 to indicate the object is a variant parent. -->
+  <!-- 'SUP32225 BZhang 10-Sep-09 Change the type of WebHHPopupFontName element to support long HTML/HTML Help font name of hyperlink -->
+  <!-- 'SUP33296 DTomes 18-Jun-10 Add Object.Locale for version 5.5 -->
+  <!-- 'SUP33305 DT/AN  24-Jun-10 Add listofvaluesitemtype for version 5.51 -->
+  <!-- 'SUP33518 DT     09-Aug-10 Add inherit attribute for templates for version 5.51 -->
+  <!-- 'SUP33621 ANeame 16-Sep-10 Add release state type -->
+  <!-- 'SUP33640 ANeame 23-Sep-10 Add variable hidden -->
+  <!-- 'SUP33705 ANeame 15-Oct-10 Add hyperlink SyncAnchorText -->
+  <!-- 'SUP36798 ANeame 20-Sep-12 Add variable properties -->
+  <!-- 'SUP37033 CH 7-Nov-12 Add paragraph id -->
+  <!-- 'SUP37033 CH 18-Feb-13 Changing HelpContextID to string -->
+  <!-- 'SPRINT-114 ANeame 17-Jul-13 Add source and target locale -->
+  <!-- 'ASC-1599 ANeame 29-Sep-14 Add Endnotes -->
+  <!-- 'LS-12    ANeame 11-Dec-14 Add derivative reuse (Object changes: add VersionParent, change Version to string, deprecate Key + Status) -->
+  <!-- 'ASC-2388 ANeame 09-Oct-11 Add XML settings to PublishProfile -->
+  <!-- definition of authorit element -->
+  <xs:element name="AuthorIT">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Objects" />
+        <xs:element ref="ObjectSummarys" minOccurs="0" />
+        <xs:element ref="Folders" minOccurs="0" />
+        <!--<xs:element name="ReleaseStates" type="releasestatestype" minOccurs="0" />-->
+        <xs:element ref="ReleaseStates" minOccurs="0" />
+        <xs:element ref="Variables" minOccurs="0" />
+        <xs:element ref="Information" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:string" />
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of information element -->
+  <xs:element name="Information">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Description" type="string255" minOccurs="0" />
+        <xs:element name="Date" type="xs:dateTime" minOccurs="0" />
+        <xs:element name="Library" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" type="string255" />
+              <xs:element name="GUID" type="guid" />
+              <xs:element name="User" type="string255" />
+              <xs:element name="Locale" type="localetype" />
+              <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PublishJob" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BookID" type="xs:nonNegativeInteger" />
+              <xs:element name="JobID" type="xs:nonNegativeInteger" />
+              <xs:element name="PublishProfileID" type="xs:nonNegativeInteger" />
+              <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TranslationJob" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Description" type="string255" />
+              <xs:element name="GUID" type="guid" />
+              <xs:element name="WordCount" type="integer" />
+              <xs:element name="ReturnDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ContactName" type="string255" minOccurs="0" />
+              <xs:element name="ContactEmail" type="string255" minOccurs="0" />
+              <xs:element name="ContactTelephone" type="string255" minOccurs="0" />
+              <xs:element name="ContactCountry" type="string255" minOccurs="0" />
+              <xs:element name="Notes" type="xs:string" minOccurs="0" />
+              <xs:element name="TranslationOverride" type="xs:boolean" minOccurs="0" />
+              <xs:element name="TranslationOverrideComment" type="string255" minOccurs="0" />
+              <xs:element name="TranslationReviewType" type="string50" minOccurs="0" />
+              <xs:element name="JobTicketID" type="string255" minOccurs="0" />
+              <xs:element name="ServiceProvider" type="string50" minOccurs="0" />
+              <xs:element name="SourceLibrary" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Locale" type="localetype" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="SourceLocale" type="localetype" minOccurs="0" />
+              <xs:element name="TargetLocale" type="localetype" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of object summarys element -->
+  <xs:element name="ObjectSummarys">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ObjectSummary" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:nonNegativeInteger" />
+              <xs:element name="Type" type="string255" />
+              <xs:element name="GUID" type="guid" />
+              <xs:element name="Description" type="string255" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of folders element -->
+  <xs:element name="Folders">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Folder" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:nonNegativeInteger" />
+              <xs:element name="Name" type="string255" />
+              <xs:element name="GUID" type="guid" />
+              <xs:element name="ParentFolderID" type="xs:nonNegativeInteger" />
+              <xs:element name="HasSubFolders" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Variables">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Variable" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:nonNegativeInteger" />
+              <xs:element name="Name" type="string50" />
+              <xs:element name="Description" type="string255"  />
+              <xs:element name="Value" type="xs:string" />
+              <xs:element name="ValueObject" type="xs:nonNegativeInteger" />
+              <xs:element name="Style" type="xs:integer" />
+              <xs:element name="Prompt" type="xs:boolean" />
+              <xs:element name="IsVariantCriteria" type="xs:boolean" />
+              <xs:element name="Priority" type="xs:nonNegativeInteger" minOccurs="0"/>
+              <xs:element name="Type" type="xs:nonNegativeInteger" />
+              <xs:element name="Hidden" type="xs:boolean" minOccurs="0"/>
+              <xs:element name="DisplayName" type="string50" minOccurs="0"/>
+              <xs:element name="MultiSelect" type="xs:boolean" minOccurs="0"/>
+              <xs:element name="ListOfValues" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Item" type="listofvaluesitemtype" minOccurs="0" maxOccurs="unbounded"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of ReleaseStates element -->
+  <xs:element name="ReleaseStates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ReleaseState" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:nonNegativeInteger" />
+              <xs:element name="Name" type="string255" />
+              <xs:element name="GUID" type="guid" />
+              <xs:element name="Color" type="xs:nonNegativeInteger" />
+              <xs:element name="ReviewColor" type="xs:nonNegativeInteger" />
+              <xs:element name="Type" type="xs:nonNegativeInteger" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- definition of object element -->
+  <xs:element name="Objects">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="Book" minOccurs="0" />
+        <xs:element ref="File" minOccurs="0" />
+        <xs:element ref="Glossary" minOccurs="0" />
+        <xs:element ref="Hyperlink" minOccurs="0" />
+        <xs:element ref="Index" minOccurs="0" />
+        <xs:element ref="IndexEntry" minOccurs="0" />
+        <xs:element ref="Macro" minOccurs="0" />
+        <xs:element ref="Media" minOccurs="0" />
+        <xs:element ref="PublishProfile" minOccurs="0" />
+        <xs:element ref="Style" minOccurs="0" />
+        <xs:element ref="TableOfContents" minOccurs="0" />
+        <xs:element ref="TableOfFigures" minOccurs="0" />
+        <xs:element ref="TitlePage" minOccurs="0" />
+        <xs:element ref="Topic" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of book element -->
+  <xs:element name="Book">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="ContentsNodes" type="treenodestype" minOccurs="0" />
+        <xs:element name="Structure" type ="structuretype" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintByLine" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintSubTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintSuperTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintVersion" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintWordTemplate" type="stringinherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpAltPrefix" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpCitation" type="stringinherited" minOccurs="0" />
+        <xs:element name="HelpCompression" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpCopyright" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpFileName" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpIncludeFile" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpMacro" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpTitle" type="string127inherited" minOccurs="0" />
+        <xs:element name="HelpTopicOffset" type="integerinherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebAdditionalFiles" type="additionalfilestype" minOccurs="0" />
+        <xs:element name="WebBaseFontSize" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebBaseURL" type="stringinherited" minOccurs="0" />
+        <xs:element name="WebByLine" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebFramesetTemplate" type="stringinherited" minOccurs="0" />
+        <xs:element name="WebSuperTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebVersion" type="string255inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of file elements -->
+  <xs:element name="File">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="EmbeddedPicture" type="xs:base64Binary" minOccurs="0" />
+        <xs:element name="EmbeddedPictureExt" type="string10" minOccurs="0" />
+        <xs:element name="HyperLink" type="integerinherited" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintBorderBottom" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintBorderLeft" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintBorderRight" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintBorderTop" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintCaptionPosition" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintCaptionLabel" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintCaptionTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintFilename" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintFolder" type="stringinherited" minOccurs="0" />
+        <xs:element name="PrintOutputFormat" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintParagraphStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintScaleHeight" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintScaleWidth" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintSizeHeight" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintSizeWidth" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintSizingMethod" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintSourceType" type="integerinherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpBitmapAlignment" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpBitmapTransparency" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpFileName" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpFolder" type="stringinherited" minOccurs="0" />
+        <xs:element name="HelpOutputFormat" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpParagraphStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpScaleHeight" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpScaleWidth" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpSizeHeight" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpSizeWidth" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpSizingMethod" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpSourceType" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpVideoPlay" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpVideoRepeat" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpVideoShowMenuButton" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpVideoShowPlaybar" type="booleaninherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebAdditionalFiles" type="additionalfilestype" minOccurs="0" />
+        <xs:element name="WebAlignment" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebAltText" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebBorder" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebFileName" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebFolder" type="stringinherited" minOccurs="0" />
+        <xs:element name="WebHorizontalSpace" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebImageMap" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebOutputFormat" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebSizeHeight" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebSizeWidth" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebSourceType" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebSpaceVertical" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebVerticalSpace" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebVideoRepeat" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebVideoRepeatTimes" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebVideoShowControls" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebVideoStart" type="integerinherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of glossary elements -->
+  <xs:element name="Glossary">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintAddLetterHeadings" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintSortTerms" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintTitle" type="string255inherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpPopUpColor" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpPopUpColorType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpPopUpType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpTitle" type="string255inherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebLinkType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebTitle" type="string255inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of Hyperlink elements -->
+  <xs:element name="Hyperlink">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="HyperLinksTargets" type="relationstype" minOccurs="0" />
+        <xs:element name="SyncAnchorText" type="booleaninherited" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintCrossRefBrackets" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintCrossRefIncludeHeading" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintCrossRefIncludePageNum" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintCrossRefPageNumText" type="string50inherited" minOccurs="0" />
+        <xs:element name="PrintCrossRefText" type="string50inherited" minOccurs="0" />
+        <xs:element name="PrintFootnoteCustomRef" type="string50inherited" minOccurs="0" />
+        <xs:element name="PrintFootnoteNumberFormat" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintFootnoteNumberType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintLinkType" type="smallintegerinherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpIncludeButton" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpJumpType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpRemoveUnderline" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpWindow" type="integerinherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebHHPopupFontName" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebHHPopupFontSize" type="string10inherited" minOccurs="0" />
+        <xs:element name="WebHHPopupMarginsLR" type="string10inherited" minOccurs="0" />
+        <xs:element name="WebHHPopupMarginsTB" type="string10inherited" minOccurs="0" />
+        <xs:element name="WebJumpStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebJumpType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebJumpURLs" type="webjumpurltype" minOccurs="0" />
+        <xs:element name="WebOpenWithJavaScript" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebWindowHeight" type="string10inherited" minOccurs="0" />
+        <xs:element name="WebWindowLeft" type="string10inherited" minOccurs="0" />
+        <xs:element name="WebWindowName" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebWindowResizable" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebWindowStatusBar" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebWindowToolbar" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebWindowTop" type="string10inherited" minOccurs="0" />
+        <xs:element name="WebWindowWidth" type="string10inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="webjumpurltype">
+    <xs:sequence>
+      <xs:element name="WebJumpURL" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Target" type="stringtranslate" />
+            <xs:element name="Description" type="stringtranslate" />
+          </xs:sequence>
+          <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  <!-- definition of index elements -->
+  <xs:element name="Index">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="IndexNodes" type="treenodestype" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintFromEntries" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintFromHeadings" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintFromLinks" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintIndexType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintRightAlign" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintTitle" type="string255inherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpFromEntries" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpFromHeadings" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpFromLinks" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpMultiBookTargets" type="relationstype" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebFromEntries" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebFromHeadings" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebFromLinks" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebHHIndexTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebHHSitemapTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebIndexType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebJHIndexTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebOHIndexTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebTitle" type="string255inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of index entry elements -->
+  <xs:element name="IndexEntry">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="Targets" type="relationstype" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintEntryText" type="string255inheritedSortorder" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpEntryText" type="string255inheritedSortorder" minOccurs="0" />
+        <xs:element name="HelpMacro" type="integerinherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebEntryText" type="string255inheritedSortorder" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of macro elements -->
+  <xs:element name="Macro">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="HelpActions" type="macroactions" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="macroactions">
+    <xs:sequence>
+      <xs:element name="Action" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Name" type="string255" />
+            <xs:element name="Parameters" type="string255" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- definition of media elements -->
+  <xs:element name="Media">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintDifferentFirst" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintDifferentOddEven" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintEvenFooter" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintEvenHeader" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintFirstFooter" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintFirstHeader" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintMarginBottom" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMarginFooter" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMarginGutter" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMarginHeader" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMarginLeft" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMarginRight" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMarginTop" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintMirrorMargins" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintNumColumns" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintOddFooter" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintOddHeader" type="string255inherited" minOccurs="0" />
+        <xs:element name="PrintOrientation" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintPageNumberFormat" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintPageNumberStartFrom" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintPageNumberStartType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintPaperSize" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintSectionStart" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintSizeHeight" type="singleinherited" minOccurs="0" />
+        <xs:element name="PrintSizeWidth" type="singleinherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpAutoSize" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBack" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBrowse" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpColourHeading" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpColourTopic" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpContents" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpFind" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpHeight" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpIndex" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpKeepOnTop" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpLeft" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpMacro" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpMaximise" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpOptions" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpPrintTopic" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpTop" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpTopics" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpWidth" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpWindowName" type="string255inherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebALinkColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebAdditionalFiles" type="additionalfilestype" minOccurs="0" />
+        <xs:element name="WebBackColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebBackImage" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebBackImageNonScrolling" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebBackSound" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebBackSoundRepeat" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebMetaData" type="metadatatype" minOccurs="0" />
+        <xs:element name="WebLinkColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebTextColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebVLinkColour" type="integerinherited" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of media elements -->
+  <xs:element name="PublishProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="PublishFormat" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="Books" type="relationsspecialtype" minOccurs="0" />
+        <xs:element name="ReleaseStates" type="releasestatestype" minOccurs="0" />
+        <xs:element name="ReleaseStateAction" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="TemplateLocation" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebAdditionalFiles" type="additionalfilestype" minOccurs="0" />
+        <xs:element name="ObjectReplacements" type="objectreplacetype" minOccurs="0" />
+        <xs:element name="PublishXmlSettings" type="xmlsettingstype" minOccurs="0" />
+        <xs:element name="FilterAll" type="booleaninherited" minOccurs="0" />
+        <xs:element name="FilterRules" type="filterrulestype" minOccurs="0" />
+        <xs:element name="ActionsBeforePublish" type="actionstype" minOccurs="0" />
+        <xs:element name="ActionsAfterPublish" type="actionstype" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <xs:element name="StructureAction" type="smallintegerinherited" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="objectreplacetype">
+    <xs:sequence>
+      <xs:element name="ObjectReplacement" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="OriginalID" type="integer" />
+            <xs:element name="ReplacementID" type="integer" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+    <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="xmlsettingstype">
+    <xs:sequence>
+      <xs:element name="FileSettings">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Admin" type="xs:boolean" />
+            <xs:element name="PrintTransformed" type="xs:boolean" />
+            <xs:element name="HelpTransformed" type="xs:boolean" />
+            <xs:element name="WebTransformed" type="xs:boolean" />
+            <xs:element name="PrintOriginal" type="xs:boolean" />
+            <xs:element name="HelpOriginal" type="xs:boolean" />
+            <xs:element name="WebOriginal" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="filterrulestype">
+    <xs:sequence>
+      <xs:element name="FilterRule" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="FilterRuleID" type="integer" />
+            <xs:element name="FilteredObjectID" type="integer" />
+            <xs:element name="ReleaseStateID" type="integer" />
+            <xs:element name="ReleaseStateOperator" type="smallinteger" />
+            <xs:element name="FolderID" type="integer" />
+            <xs:element name="FolderOperator" type="smallinteger" />
+            <xs:element name="IncludeSubfolders" type="boolean" />
+            <xs:element name="VariableID" type="integer" />
+            <xs:element name="VariableOperator" type="smallinteger" />
+            <xs:element name="VariableValue" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actionstype">
+    <xs:sequence>
+      <xs:element name="PublishAction" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ActionID" type="integer" />
+            <xs:element name="Description" type="string255" />
+            <xs:element name="ActionType" type="smallinteger" />
+            <xs:element name="WhenTriggered" type="smallinteger" />
+            <xs:element name="Sequence" type="smallinteger" />
+            <xs:element name="FileList" type="xs:string" />
+            <xs:element name="Target" type="xs:string" />
+            <xs:element name="TargetAttributes" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <!-- definition of style element -->
+  <xs:element name="Style">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="BorderBottom" type="booleaninherited" minOccurs="0" />
+        <xs:element name="BorderLeft" type="booleaninherited" minOccurs="0" />
+        <xs:element name="BorderRight" type="booleaninherited" minOccurs="0" />
+        <xs:element name="BorderStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="BorderShadow" type="booleaninherited" minOccurs="0" />
+        <xs:element name="BorderTop" type="booleaninherited" minOccurs="0" />
+        <xs:element name="Bullet" type="integerinherited" minOccurs="0" />
+        <xs:element name="FontBold" type="booleaninherited" minOccurs="0" />
+        <xs:element name="FontColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="FontItalics" type="booleaninherited" minOccurs="0" />
+        <xs:element name="FontName" type="string255inherited" minOccurs="0" />
+        <xs:element name="FontSize" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="FontUnderline" type="integerinherited" minOccurs="0" />
+        <xs:element name="FontSubscript" type="booleaninherited" minOccurs="0" />
+        <xs:element name="FontSuperscript" type="booleaninherited" minOccurs="0" />
+        <xs:element name="Number" type="integerinherited" minOccurs="0" />
+        <xs:element name="Numbering" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="NumberStart" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="OutlineLevel" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="ParaAfter" type="singleinherited" minOccurs="0" />
+        <xs:element name="ParaAlignment" type="integerinherited" minOccurs="0" />
+        <xs:element name="ParaBefore" type="singleinherited" minOccurs="0" />
+        <xs:element name="ParaFirstLine" type="singleinherited" minOccurs="0" />
+        <xs:element name="ParaLeft" type="singleinherited" minOccurs="0" />
+        <xs:element name="ParaLineSpacing" type="singleinherited" minOccurs="0" />
+        <xs:element name="ParaRight" type="singleinherited" minOccurs="0" />
+        <xs:element name="StyleName" type="string255inherited" minOccurs="0" />
+        <xs:element name="StyleType" type="integerinherited" minOccurs="0" />
+        <xs:element name="TabDefault" type="singleinherited" minOccurs="0" />
+        <xs:element name="Tabs" type="tabstype" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <xs:element name="TemplatePrompt" type="booleaninherited" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintStyleName" type="string255inherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpBorderBottom" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBorderLeft" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBorderRight" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBorderShadow" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBorderStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpBorderTop" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpBullet" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpFontBold" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpFontColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpFontItalics" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpFontName" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpFontSize" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpNonWrapping" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpNumber" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpNumbering" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpNumberStart" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpParaAfter" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpParaAlignment" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpParaBefore" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpParaFirstLine" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpParaLeft" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpParaLineSpacing" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpParaRight" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpTabDefault" type="singleinherited" minOccurs="0" />
+        <xs:element name="HelpTabs" type="tabstype" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebBackAttach" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBackColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebBackPositionX" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBackPositionY" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBackRepeat" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBackURL" type="stringinherited" minOccurs="0" />
+        <xs:element name="WebBorderColourBottom" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebBorderColourLeft" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebBorderColourRight" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebBorderColourTop" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebBorderStyleBottom" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderStyleLeft" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderStyleRight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderStyleTop" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderWidthBottom" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderWidthLeft" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderWidthRight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBorderWidthTop" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBlockTag" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBulletStyle" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebBulletURL" type="stringinherited" minOccurs="0" />
+        <xs:element name="WebClear" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebFloat" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebFontColour" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebFontName" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebFontSize" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebFontStyle" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebFontVariant" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebFontWeight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebHeight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebLetterSpacing" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebLineHeight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebMarginBottom" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebMarginLeft" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebMarginRight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebMarginTop" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebNumbering" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebNumberStyle" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebPaddingBottom" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebPaddingLeft" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebPaddingRight" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebPaddingTop" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebTextAlign" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebTextDecoration" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebTextIndent" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebTextTag" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebTextTransform" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebVerticalAlign" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebWhiteSpace" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebWidth" type="string50inherited" minOccurs="0" />
+        <xs:element name="WebWordSpacing" type="string50inherited" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of tableofcontents elements -->
+  <xs:element name="TableOfContents">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintAddSuperHeadings" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintPageNumber" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintRightAlign" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintShowLevel" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintTitle" type="string255inherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpMultiBookTargets" type="relationstype" minOccurs="0" />
+        <xs:element name="HelpTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpWindow" type="integerinherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebContentsType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebFrameType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebFrameWidth" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="WebHHSitemapTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebHHTocTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebJHTocTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebOHTocTemplate" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebTitle" type="string255inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of tableoffigures elements -->
+  <xs:element name="TableOfFigures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintCaption" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintLabelType" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintPageNumber" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintRightAlign" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintTitle" type="string255inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of titlepage elements -->
+  <xs:element name="TitlePage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintFile" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintIncludeByLine" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintIncludeSubTitle" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintIncludeSuperTitle" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintIncludeTitle" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintIncludeVersion" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintMedia" type="integerinherited" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- definition of topic elements -->
+  <xs:element name="Topic">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Object" type="objecttype" />
+        <!-- Specific elements -->
+        <xs:element name="Headings" type="headingstype" minOccurs="0" />
+        <xs:element name="RelatedGroups" type="relatedgroupstype" minOccurs="0" />
+        <xs:element name="Structure" type ="structuretype" minOccurs="0" />
+        <xs:element name="Text" type="topictexttype" minOccurs="0" />
+        <xs:element name="VariableAssignments" type="variableassignmentstype" minOccurs="0" />
+        <!-- Print elements -->
+        <xs:element name="PrintAutoNumber" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintBreakType" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintEndnotePage" type="booleaninherited" minOccurs="0" />
+        <xs:element name="PrintEndnoteListFormat" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintEndnoteNumberType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="PrintHeadingStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="PrintSuperHeading" type="string255inherited" minOccurs="0" />
+        <!-- Help elements -->
+        <xs:element name="HelpAlias" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpContextID" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpContextString" type="string255inherited" minOccurs="0" />
+        <xs:element name="HelpCustomFootnotes" type="customfootnotestype" minOccurs="0" />
+        <xs:element name="HelpHeadingStyle" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpIncludeInSequence" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpJumpMacro" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpJumpType" type="smallintegerinherited" minOccurs="0" />
+        <xs:element name="HelpJumpWindow" type="integerinherited" minOccurs="0" />
+        <xs:element name="HelpNewSequence" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpNonScrolling" type="booleaninherited" minOccurs="0" />
+        <xs:element name="HelpTopicMacro" type="integerinherited" minOccurs="0" />
+        <!-- Web elements -->
+        <xs:element name="WebFilename" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebMedia" type="integerinherited" minOccurs="0" />
+        <xs:element name="WebStartNewPage" type="booleaninherited" minOccurs="0" />
+        <xs:element name="WebTitle" type="string255inherited" minOccurs="0" />
+        <xs:element name="WebTOCImage" type="string10inherited" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+      <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="headingstype">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="All" type="string255inheritedSortorder" />
+        <xs:sequence>
+          <xs:element name="PrintHeading" type="string255inheritedSortorder" minOccurs="0" />
+          <xs:element name="HelpHeading" type="string255inheritedSortorder" minOccurs="0" />
+          <xs:element name="WebHeading" type="string255inheritedSortorder" minOccurs="0" />
+        </xs:sequence>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="wordcount" type="xs:nonNegativeInteger" use="optional" />
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="customfootnotestype">
+    <xs:sequence>
+      <xs:element name="HelpFootnote" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Type" type="string255" />
+            <xs:element name="Data" type="string255" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+    <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="relatedgroupstype">
+    <xs:sequence>
+      <xs:element name="RelatedGroup" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Alignment" type="integer" minOccurs="0" />
+            <xs:element name="Children" type="xs:boolean" minOccurs="0" />
+            <xs:element name="ColumnWidth" type="string10" minOccurs="0" />
+            <xs:element name="Contents" type="xs:boolean" minOccurs="0" />
+            <xs:element name="ExcludeHeadingText" type="xs:boolean" minOccurs="0" />
+            <xs:element name="Heading" type="string255translate" />
+            <xs:element name="HeadingFile" type="integer" minOccurs="0" />
+            <xs:element name="HeadingStyle" type="integer" minOccurs="0" />
+            <xs:element name="IncludeInHelp" type="xs:boolean" minOccurs="0" />
+            <xs:element name="IncludeInPrint" type="xs:boolean" minOccurs="0" />
+            <xs:element name="IncludeInWeb" type="xs:boolean" minOccurs="0" />
+            <xs:element name="Index" type="xs:boolean" minOccurs="0" />
+            <xs:element name="ItemStyle" type="integer" minOccurs="0" />
+            <xs:element name="NextTopic" type="xs:boolean" minOccurs="0" />
+            <xs:element name="ParentTopic" type="xs:boolean" minOccurs="0" />
+            <xs:element name="PopUp" type="xs:boolean" minOccurs="0" />
+            <xs:element name="Position" type="integer" minOccurs="0" />
+            <xs:element name="PreviousTopic" type="xs:boolean" minOccurs="0" />
+            <xs:element name="RelatedGroupID" type="string255translate" />
+            <xs:element name="Sequence" type="integer" minOccurs="0" />
+            <xs:element name="Siblings" type="xs:boolean" minOccurs="0" />
+            <xs:element name="SpecificLinks" type="relationstype" minOccurs="0" />
+          </xs:sequence>
+          <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+          <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+          <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="cstype" mixed="true">
+    <!-- SUP22725 dkyle 4-dec-07 Added nbd/nbs to cstype -->
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="nbd" minOccurs="0"/>
+      <xs:element name="nbs" minOccurs="0"/>
+    </xs:choice>
+
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="treftype">
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="freftype">
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="mreftype" mixed="true">
+    <xs:sequence>
+      <xs:element name="cs" type="cstype" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="hreftype" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="cs" type="cstype"/>
+
+      <!-- SUP22725 dkyle 4-dec-07 Added nbd/nbs to hreftype -->
+      <xs:element name="nbd" minOccurs="0"/>
+      <xs:element name="nbs" minOccurs="0"/>
+    </xs:choice>
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="ptype" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="br" />
+      <xs:element name="cs" type="cstype" />
+      <xs:element name="fref" type="freftype" />
+      <xs:element name="href" type="hreftype" />
+      <xs:element name="mref" type="mreftype" />
+      <xs:element name="nbd" />
+      <xs:element name="nbs" />
+      <xs:element name="tref" type="treftype" />
+    </xs:choice>
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+    
+    <!-- SUP37033 CH 7-Nov-12 Added to allow text fragment and block ids to be exported with xml -->
+    <xs:attribute name="pid" type="xs:nonNegativeInteger" use="optional"/>
+    <xs:attribute name="nid" type="xs:nonNegativeInteger" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="tabletype">
+    <xs:sequence>
+      <xs:element name="caption" type="captiontype" minOccurs="0" maxOccurs="1" />
+      <xs:element name="tr" type="trtype" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="rows" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="cols" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="width" type="xs:positiveInteger" use="required" />
+  </xs:complexType>
+  <xs:complexType name="captiontype" mixed="true">
+    <xs:attribute name="id" type="xs:positiveInteger" use="required" />
+  </xs:complexType>
+  <xs:complexType name="trtype">
+    <xs:sequence>
+      <xs:element name="td" type="tdtype" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="rowheight" type="xs:nonNegativeInteger" use="required" />
+    <xs:attribute name="header" type="xs:boolean" use="optional" />
+    <xs:attribute name="allowbreak" type="xs:boolean" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="tdtype">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="p" type="ptype" />
+      <xs:element name="table" type="tabletype" />
+    </xs:choice>
+    <xs:attribute name="width" type="xs:positiveInteger" use="required" />
+    <xs:attribute name="borders" type="xs:string" use="optional" />
+    <xs:attribute name="bordercolors" type="xs:string" use="optional" />
+    <xs:attribute name="bgcolor" type="xs:nonNegativeInteger" use="optional" />
+    <xs:attribute name="rowspan" type="xs:positiveInteger" use="optional" />
+    <xs:attribute name="colspan" type="xs:positiveInteger" use="optional" />
+    <xs:attribute name="shading" type="percent" use="optional" />
+    <xs:attribute name="verticalalignment" type="xs:nonNegativeInteger" use="optional" />
+    <xs:attribute name="verticaldirection" type="xs:nonNegativeInteger" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="topictexttype">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="p" type="ptype" />
+      <xs:element name="table" type="tabletype" />
+    </xs:choice>
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+
+  <!-- definition of datatypes -->
+  <xs:simpleType name="string255">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string127">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="127" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string50">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="string10">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="guid">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="32" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="percent">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="stringinherited">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="stringtranslate">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="string255translate">
+    <xs:simpleContent>
+      <xs:extension base="string255">
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="string255inherited">
+    <xs:simpleContent>
+      <xs:extension base="string255">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="string255Sortorder">
+    <xs:simpleContent>
+      <xs:extension base="string255">
+        <xs:attribute name="sortorder" type="string255" use="optional" />
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="string255inheritedSortorder">
+    <xs:simpleContent>
+      <xs:extension base="string255">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+        <xs:attribute name="sortorder" type="string255" use="optional" />
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="string127inherited">
+    <xs:simpleContent>
+      <xs:extension base="string127">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="string50inherited">
+    <xs:simpleContent>
+      <xs:extension base="string50">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+        <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="string10inherited">
+    <xs:simpleContent>
+      <xs:extension base="string10">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="boolean">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="true" />
+      <xs:enumeration value="false" />
+      <xs:enumeration value="(don't inherit)" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="booleaninherited">
+    <xs:simpleContent>
+      <xs:extension base="boolean">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="integer">
+    <xs:restriction base="xs:integer">
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="integerinherited">
+    <xs:simpleContent>
+      <xs:extension base="integer">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="smallinteger">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="-32768" />
+      <xs:maxInclusive value="32767" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="smallintegerinherited">
+    <xs:simpleContent>
+      <xs:extension base="smallinteger">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="single">
+    <xs:restriction base="xs:decimal">
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="singleinherited">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+        <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="objecttype">
+    <xs:sequence>
+      <xs:element name="BasedOn" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="CreatedBy" type="string50" minOccurs="0" />
+      <xs:element name="CreatedDate" type="xs:dateTime" minOccurs="0" />
+      <xs:element name="Description" type="string255translate" />
+      <xs:element name="FolderID" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="GUID" type="guid" />
+      <xs:element name="ID" type="xs:nonNegativeInteger" />
+      <xs:element name="IncludeInHelp" type="booleaninherited" minOccurs="0" />
+      <xs:element name="IncludeInPrint" type="booleaninherited" minOccurs="0" />
+      <xs:element name="IncludeInWeb" type="booleaninherited" minOccurs="0" />
+      <xs:element name="IsTemplate" type="boolean" minOccurs="0" />
+      <xs:element name="Key" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="LocalizationID" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="ModifiedID" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="ModifiedBy" type="string50" minOccurs="0" />
+      <xs:element name="ModifiedDate" type="xs:dateTime" minOccurs="0" />
+      <xs:element name="ReleaseStateID" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="Status" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="StructureAllowed" type="booleaninherited" minOccurs="0" />
+      <xs:element name="StructureIsValid" type="smallinteger" minOccurs="0" />
+      <xs:element name="Type" type="string50" minOccurs="0" />
+      <xs:element name="Version" type="string50" minOccurs="0" />
+      <xs:element name="VersionParent" type="xs:int" minOccurs="0" />
+      <xs:element name="VersionRoot" type="xs:int" minOccurs="0" />
+      <xs:element name="VariantParentID" type="xs:int" minOccurs="0" />
+      <xs:element name="LocID" type="xs:nonNegativeInteger" minOccurs="0" />
+      <xs:element name="ModifiedComments" type="xs:string" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="relationstype">
+    <xs:sequence>
+      <xs:element name="Relation" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ID" type="xs:nonNegativeInteger" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="relationsspecialtype">
+    <xs:sequence>
+      <xs:element name="Relation" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ID" type="xs:integer" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="variableassignmentstype">
+    <xs:sequence>
+      <xs:element name="VariableAssignment" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ID" type="xs:nonNegativeInteger" />
+            <xs:element name="Name" type="string255" minOccurs="0" />
+            <xs:element name="Value" type="stringtranslate" />
+            <xs:element name="ValueObject" type="integer" />
+            <xs:element name="Style" type="integer" />
+            <xs:element name="PublishPrompt" type="boolean" minOccurs="0" />
+            <xs:element name="IsVariantCriteria" type="boolean" minOccurs="0" />
+          </xs:sequence>
+          <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="translate" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="additionalfilestype">
+    <xs:sequence>
+      <xs:element name="AdditionalFile" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Filename" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="inherited" type="xs:boolean" use="optional" />
+    <xs:attribute name="inherit" type="xs:boolean" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="treenodestype">
+    <xs:sequence>
+      <xs:element name="Node" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ChildNodes" type="treenodestype" minOccurs="0" />
+          </xs:sequence>
+          <xs:attribute name="id" type="xs:nonNegativeInteger" use="optional" />
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="metadatatype">
+    <xs:sequence>
+      <xs:element name="MetaDataItem" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Name" type="xs:string" />
+            <xs:element name="Content" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="tabstype">
+    <xs:sequence>
+      <xs:element name="Tab" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Alignment" type="integer" />
+            <xs:element name="Position" type="single" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="localetype">
+    <xs:sequence>
+      <xs:element name="ID" type="xs:nonNegativeInteger" />
+      <xs:element name="Description" type="string255" />
+      <xs:element name="Code" type="string255" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="releasestatestype">
+    <xs:sequence>
+      <xs:element name="ReleaseState" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ID" type="xs:nonNegativeInteger" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="variablestype">
+    <xs:sequence>
+      <xs:element name="Variable" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ID" type="xs:nonNegativeInteger" />
+            <xs:element name="Name" type="string50" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="listofvaluesitemtype">
+    <xs:simpleContent>
+      <xs:extension base="string255">
+        <xs:attribute name="lovid" type="xs:integer" use="optional" />
+        <xs:attribute name="parentlovid" type="xs:integer" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="structuretype">
+    <xs:sequence>
+      <xs:element name="StructureID" type="xs:nonNegativeInteger" />
+      <xs:element name="Name" type="string255" />
+      <xs:element name="Description" type="xs:string" />
+      <xs:element name="ExampleObjectID" type="xs:integer" />
+      <xs:element name="ReleaseStates" type="releasestatestype" minOccurs="0" />
+      <xs:element name="StructureRules" type="structurerulestype" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="structurerulestype">
+    <xs:sequence>
+      <xs:element name="StructureRule" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="StructureRuleID" type="xs:nonNegativeInteger" />
+            <xs:element name="Name" type="string255" />
+            <xs:element name="Description" type="xs:string" />
+            <xs:element name="AllowedObjects" type="relationstype" minOccurs="0" />
+            <xs:element name="AllowedVariables" type="variablestype" minOccurs="0" />
+            <xs:element name="ExampleObjectID" type="xs:integer" />
+            <xs:element name="RuleType" type="smallinteger" />            
+            <xs:element name="ValidateMin" type="smallinteger" />
+            <xs:element name="ValidateMax" type="smallinteger" />
+            <xs:element name="ValidateSequence" type="smallinteger" />
+            <xs:element name="TableRuleType" type="smallinteger" minOccurs="0" />
+            <xs:element name="TableRangeMin" type="smallinteger" minOccurs="0" />
+            <xs:element name="TableRangeMax" type="smallinteger" minOccurs="0" />
+            <xs:element name="ChildRules" type="structurerulestype" minOccurs="0" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element >
+    </xs:sequence>
+  </xs:complexType >
+      
+</xs:schema >
+
+
+  

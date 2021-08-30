@@ -1,0 +1,5 @@
+<hello>
+	<string value="OK">
+This is valid XML.
+	</string>
+</hello>
